@@ -75,6 +75,8 @@ const questions = [
 var getTags = [];
 
 function displayQuestions() {
+    document.getElementById('answer_container').style.display = "none";
+
     for (let i = 0; i < questions.length; i++) {
         let title = document.createElement('h3');
         title.textContent = questions[i].question;
@@ -93,6 +95,7 @@ function displayQuestions() {
             getTags = [];
         });
     }
+
 }
 
 var checkedTags;
@@ -103,8 +106,8 @@ function next() {
     checkedTags = document.querySelectorAll('.checked');
     checkedTags.forEach(e => getTags.push(e.textContent));
     if (getTags == "") return alert("至少選擇一項");
-    document.getElementById('question_container').style.display = "none"
-    
+    document.getElementById('question_container').style.display = "none";
+    document.getElementById('answer_container').style.display = "flex";
 
     var filtered = food;
     for (let i = 0; i < getTags.length; i++) {
@@ -113,14 +116,19 @@ function next() {
 
     for (let j = 0; j < filtered.length; j++) {
         displayFood += `<div class="answer_block">${filtered[j].name}</div>`;
-        document.getElementById('answer_container').innerHTML = displayFood;
     }
+    document.querySelector('.answer_box').innerHTML = displayFood;
 }
 
 function again() {
     checkedTags = document.querySelectorAll('.checked');
     getTags = [];
     checkedTags.forEach(e => e.classList.remove('checked'))
+}
+
+function recover() {
+    document.getElementById('question_container').style.display = "flex";
+    document.getElementById('answer_container').style.display = "none";
 }
 
 displayQuestions()
